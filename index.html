@@ -14,6 +14,13 @@
   html{scroll-behavior:smooth;}
   body{font-family:'Rubik',system-ui,sans-serif; background:var(--paper); color:var(--dark); line-height:1.55;}
   header{background:var(--dark); color:#fff; padding:38px 20px 26px; text-align:center;}
+  /* прожектор: белое фото растворяется в светлом пятне */
+  header .spot{width:min(560px,86vw); margin:0 auto 14px; border-radius:28px;
+    background:radial-gradient(ellipse 88% 84% at 50% 48%, #fffdf6 0%, #f6f2e7 45%, #ede8da 70%, rgba(237,232,218,0) 100%);}
+  header .hero-bike{width:100%; display:block; mix-blend-mode:multiply;}
+  .emj-wrap{display:inline-block; padding:.12em .4em; vertical-align:-.24em; border-radius:50%;
+    background:radial-gradient(circle at 50% 50%, #fffdf5 0%, #f4f0e6 55%, rgba(244,240,230,0) 80%);}
+  img.emj{height:1.1em; width:auto; display:inline-block; mix-blend-mode:multiply;}
   header h1{font-size:2.2rem; letter-spacing:1px;}
   header h1 span{color:var(--yellow);}
   header p{color:#cfd8dc; margin-top:6px; font-size:1.02rem;}
@@ -34,9 +41,11 @@
   .btn-red{background:var(--red); color:#fff;} .btn-red:hover{background:#a31f1f;}
   .btn-gray{background:#e8e4da; color:var(--dark);} .btn-gray:hover{background:#ddd6c8;}
 
-  /* ===== СХЕМА МОТОЦИКЛА (общая) ===== */
+  /* ===== СХЕМА: ФОТО ЧЁРНОГО BMW ===== */
   .motoBox{width:100%; background:linear-gradient(#eef4f8,#e2ebf1); border-radius:14px;}
   .motoSvg{width:100%; display:block;}
+  /* белый фон фото растворяется на схеме и на карте */
+  .motoSvg image, #bikeMarker image{mix-blend-mode:multiply;}
   .part{cursor:pointer; transition:filter .2s;}
   .part.active{filter:drop-shadow(0 0 5px #ffb300) drop-shadow(0 0 2px #ffb300);}
   .hs{fill:var(--yellow); stroke:var(--dark); stroke-width:3; cursor:pointer; transition:.2s;}
@@ -44,22 +53,9 @@
   .hs.sel{fill:#fff; stroke:#ff7043; stroke-width:4;}
   .hs.matched{fill:var(--green); stroke:#1b5e20;}
   .hs.wrong{fill:#e53935;}
-  .hsNum{font:700 14px 'Rubik'; fill:var(--dark); pointer-events:none; text-anchor:middle; dominant-baseline:central;}
+  .hsNum{font:700 16px 'Rubik'; fill:var(--dark); pointer-events:none; text-anchor:middle; dominant-baseline:central;}
   .hs.matched + .hsNum, .hs.sel + .hsNum{fill:#fff;}
-  .matchLbl{font:700 13px 'Rubik'; fill:var(--green);}
-  .tire{fill:none; stroke:#26262b; stroke-width:14;} .rim{fill:none; stroke:#9aa0a6; stroke-width:5;}
-  .spokes line{stroke:#9aa0a6; stroke-width:3;} .hub{fill:#5f6368;}
-  .disc{fill:none; stroke:#b0bec5; stroke-width:5;} .caliper{fill:#c62828;}
-  .chainline{stroke:#5f6368; stroke-width:6; stroke-dasharray:8 4;} .cog{fill:#78909c;}
-  .engine{fill:#37474f;} .cyl{fill:#455a64;} .fins line{stroke:#263238; stroke-width:3;}
-  .pipe{fill:none; stroke:#90a4ae; stroke-width:10; stroke-linecap:round;} .muff{fill:#b0bec5; stroke:#78909c; stroke-width:2;}
-  .fork{stroke:#78909c; stroke-width:8; stroke-linecap:round;} .fork2{stroke:#78909c; stroke-width:4; opacity:.7; stroke-linecap:round;}
-  .frame{stroke:#455a64; stroke-width:6; stroke-linecap:round; fill:none;}
-  .seat{fill:#212121;} .tankc{fill:#c62828;} .shine{fill:#ef9a9a; opacity:.7;}
-  .bar{fill:none; stroke:#263238; stroke-width:7; stroke-linecap:round;} .grip{stroke:#000; stroke-width:11; stroke-linecap:round;}
-  .stem{stroke:#263238; stroke-width:4;} .mirror{fill:#bbdefb; stroke:#263238; stroke-width:3;}
-  .light{fill:#ffe082; stroke:#263238; stroke-width:3;} .fender{fill:none; stroke:#c62828; stroke-width:8; stroke-linecap:round;}
-  .speedo{fill:#eceff1; stroke:#263238; stroke-width:3;}
+  .matchLbl{font:700 15px 'Rubik'; fill:var(--green);}
 
   .parts-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:22px;}
   @media(max-width:820px){.parts-grid{grid-template-columns:1fr;}}
@@ -168,7 +164,8 @@
 <body>
 
 <header>
-  <h1>🏍 МОТО<span>-</span>РУССКИЙ</h1>
+  <div class="spot"><img src="bmw.png" alt="Чёрный BMW S1000RR" class="hero-bike"></div>
+  <h1><span class="emj-wrap"><img src="bmw.png" alt="" class="emj"></span> МОТО<span>-</span>РУССКИЙ</h1>
   <p>Интерактивный русский язык для студентов-иностранцев · Interactive Russian for foreign students</p>
 </header>
 <div class="road"></div>
@@ -190,7 +187,7 @@
   <p class="hint">Нажми на жёлтую цифру на схеме (или на слово ниже), чтобы увидеть перевод и пример. · Click a yellow number on the diagram (or a word below) to see the translation and an example.</p>
   <div class="parts-grid">
     <div>
-      <div class="motoBox"><svg id="motoStudy" class="motoSvg" viewBox="0 0 640 400" aria-label="Схема мотоцикла"></svg></div>
+      <div class="motoBox"><svg id="motoStudy" class="motoSvg" viewBox="0 0 840 434" aria-label="Схема мотоцикла"></svg></div>
     </div>
     <div id="partCard">
       <h3 id="pRu">Выбери деталь! 👆</h3>
@@ -215,7 +212,7 @@
   <h2>📖 Мини-текст: «Мотоцикл» <span class="en">Short reading text — click underlined words for translation</span></h2>
   <p class="hint">Нажимай на подчёркнутые слова, чтобы увидеть перевод. · Click the underlined words to see their English meaning.</p>
   <div class="textbtns">
-    <button class="btn-gray" id="toggleEn">🇬🇧 Показать перевод / Show translation</button>
+    <button class="btn-gray" id="toggleEn">🇬 Показать перевод / Show translation</button>
   </div>
   <div id="ruText">
     <p>Мотоцикл — это быстрый и лёгкий <span class="w" data-en="type of transport">вид транспорта</span>. У мотоцикла два колеса, <span class="w" data-en="powerful">мощный</span> <span class="w" data-en="engine">двигатель</span> и <span class="w" data-en="handlebar">руль</span>.</p>
@@ -242,7 +239,7 @@
   </div>
   <div class="match-grid">
     <div class="match-wrap">
-      <div class="motoBox"><svg id="motoMatch" class="motoSvg" viewBox="0 0 640 400" aria-label="Схема для сопоставления"></svg></div>
+      <div class="motoBox"><svg id="motoMatch" class="motoSvg" viewBox="0 0 840 434" aria-label="Схема для сопоставления"></svg></div>
       <div id="matchWin"><div>
         <h3>🎉 Отлично! Excellent!</h3>
         <p id="winText"></p>
@@ -296,14 +293,7 @@
         <path id="routeDone" class="routeDone"/>
         <g id="citiesG"></g>
         <g id="bikeMarker">
-          <g transform="scale(1.35)">
-            <circle cx="-11" cy="0" r="6" fill="#263238"/><circle cx="11" cy="0" r="6" fill="#263238"/>
-            <circle cx="-11" cy="0" r="2.5" fill="#cfd8dc"/><circle cx="11" cy="0" r="2.5" fill="#cfd8dc"/>
-            <path d="M-11,0 L-4,-9 L5,-9 L11,0 Z" fill="#c62828"/>
-            <path d="M5,-9 L8,-14" stroke="#263238" stroke-width="2.5"/>
-            <path d="M-4,-9 L-1,-16 L6,-11" stroke="#1565c0" stroke-width="3" fill="none"/>
-            <circle cx="-1" cy="-19" r="3.6" fill="#d32f2f"/>
-          </g>
+          <image href="bmw.png" x="-30" y="-27" width="60" height="31"></image>
         </g>
       </svg>
       <div id="finish"><div>
@@ -327,24 +317,25 @@
 </section>
 
 </main>
-<footer>Сделано для студентов, изучающих русский язык · Made for students learning Russian · 🏍 2026</footer>
+<footer>Сделано для студентов, изучающих русский язык · Made for students learning Russian · <span class="emj-wrap"><img src="bmw.png" alt="" class="emj"></span> 2026</footer>
 <div id="tip"></div>
 <div id="toast"></div>
 
 <script>
 /* =============== ДАННЫЕ =============== */
+/* Координаты x,y и смещения подписей lbl указаны для фото bmw.png (viewBox 0 0 840 434) */
 const PARTS=[
- {id:'wheel',    n:1, x:150,y:232, ru:'Колесо',            tr:'kolesó',                    en:'Wheel',            ex:'Переднее и заднее колесо крутятся.',            exEn:'The front and rear wheels turn.', lbl:[-18,5,'end']},
- {id:'engine',   n:2, x:300,y:275, ru:'Двигатель',          tr:'dvígatel’',                 en:'Engine',           ex:'Двигатель даёт мотоциклу силу.',                exEn:'The engine gives the motorcycle power.', lbl:[0,62,'middle']},
- {id:'tank',     n:3, x:352,y:182, ru:'Бензобак',           tr:'benzobák',                  en:'Fuel tank',        ex:'В бензобаке есть бензин.',                      exEn:'There is petrol in the fuel tank.', lbl:[0,-22,'middle']},
- {id:'seat',     n:4, x:248,y:186, ru:'Сиденье',            tr:'sidén’je',                  en:'Seat',             ex:'Мотоциклист сидит на сиденье.',                 exEn:'The rider sits on the seat.', lbl:[0,-24,'middle']},
- {id:'handlebar',n:5, x:420,y:118, ru:'Руль',               tr:'rul’',                      en:'Handlebar',        ex:'Водитель держит руки на руле.',                 exEn:'The driver keeps his hands on the handlebar.', lbl:[-20,26,'end']},
- {id:'headlight',n:6, x:474,y:166, ru:'Фара',               tr:'fará',                      en:'Headlight',        ex:'Ночью фара светит ярко.',                       exEn:'At night the headlight shines brightly.', lbl:[26,-8,'start']},
- {id:'mirror',   n:7, x:456,y:95,  ru:'Зеркало заднего вида',tr:'zérkalo zádnevo vída',     en:'Rear-view mirror', ex:'Посмотри в зеркало перед поворотом!',           exEn:'Look in the mirror before turning!', lbl:[26,-6,'start']},
- {id:'exhaust',  n:8, x:120,y:337, ru:'Глушитель (выхлопная труба)',tr:'glushítel’ (výhlopnaja trubá)',en:'Muffler (exhaust pipe)',ex:'Из глушителя идёт дым.', exEn:'Smoke comes out of the muffler.', lbl:[0,30,'middle']},
- {id:'chain',    n:9, x:205,y:300, ru:'Цепь',               tr:'tsep’',                     en:'Chain',            ex:'Цепь соединяет двигатель и колесо.',            exEn:'The chain connects the engine and the wheel.', lbl:[0,-22,'middle']},
- {id:'fork',     n:10,x:472,y:225, ru:'Передняя вилка',     tr:'perédnjaja vílka',          en:'Front fork',       ex:'Вилка держит переднее колесо.',                 exEn:'The fork holds the front wheel.', lbl:[26,4,'start']},
- {id:'brake',    n:11,x:490,y:300, ru:'Тормоз',             tr:'tormóz',                    en:'Brake',            ex:'Нажми на тормоз и остановись!',                 exEn:'Press the brake and stop!', lbl:[26,18,'start']}
+ {id:'wheel',    n:1, x:170,y:305, ru:'Колесо',            tr:'kolesó',                    en:'Wheel',            ex:'Переднее и заднее колесо крутятся.',            exEn:'The front and rear wheels turn.', lbl:[-84,6,'end']},
+ {id:'engine',   n:2, x:400,y:265, ru:'Двигатель',          tr:'dvígatel’',                 en:'Engine',           ex:'Двигатель даёт мотоциклу силу.',                exEn:'The engine gives the motorcycle power.', lbl:[0,96,'middle']},
+ {id:'tank',     n:3, x:405,y:140, ru:'Бензобак',           tr:'benzobák',                  en:'Fuel tank',        ex:'В бензобаке есть бензин.',                      exEn:'There is petrol in the fuel tank.', lbl:[0,-36,'middle']},
+ {id:'seat',     n:4, x:270,y:162, ru:'Сиденье',            tr:'sidén’je',                  en:'Seat',             ex:'Мотоциклист сидит на сиденье.',                 exEn:'The rider sits on the seat.', lbl:[0,-40,'middle']},
+ {id:'handlebar',n:5, x:520,y:128, ru:'Руль',               tr:'rul’',                      en:'Handlebar',        ex:'Водитель держит руки на руле.',                 exEn:'The driver keeps his hands on the handlebar.', lbl:[-34,36,'end']},
+ {id:'headlight',n:6, x:625,y:170, ru:'Фара',               tr:'fará',                      en:'Headlight',        ex:'Ночью фара светит ярко.',                       exEn:'At night the headlight shines brightly.', lbl:[30,-12,'start']},
+ {id:'mirror',   n:7, x:520,y:98,  ru:'Зеркало заднего вида',tr:'zérkalo zádnevo vída',     en:'Rear-view mirror', ex:'Посмотри в зеркало перед поворотом!',           exEn:'Look in the mirror before turning!', lbl:[34,-16,'start']},
+ {id:'exhaust',  n:8, x:215,y:288, ru:'Глушитель (выхлопная труба)',tr:'glushítel’ (výhlopnaja trubá)',en:'Muffler (exhaust pipe)',ex:'Из глушителя идёт дым.', exEn:'Smoke comes out of the muffler.', lbl:[0,56,'middle']},
+ {id:'chain',    n:9, x:285,y:300, ru:'Цепь',               tr:'tsep’',                     en:'Chain',            ex:'Цепь соединяет двигатель и колесо.',            exEn:'The chain connects the engine and the wheel.', lbl:[0,-44,'middle']},
+ {id:'fork',     n:10,x:580,y:245, ru:'Передняя вилка',     tr:'perédnjaja vílka',          en:'Front fork',       ex:'Вилка держит переднее колесо.',                 exEn:'The fork holds the front wheel.', lbl:[42,6,'start']},
+ {id:'brake',    n:11,x:600,y:305, ru:'Тормоз',             tr:'tormóz',                    en:'Brake',            ex:'Нажми на тормоз и остановись!',                 exEn:'Press the brake and stop!', lbl:[42,30,'start']}
 ];
 const VOCAB=[
  {ru:'Мотоцикл',en:'Motorcycle',tr:'mototsíkl'},{ru:'Мотоциклист',en:'Motorcyclist',tr:'mototsiklíst'},
@@ -359,69 +350,13 @@ const VOCAB=[
 ];
 const shuffle=a=>{const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;};
 
-/* =============== РИСУНОК МОТОЦИКЛА (общий) =============== */
-const MOTO_BODY=`
-  <line x1="30" y1="372" x2="610" y2="372" stroke="#b0bec5" stroke-width="3" stroke-dasharray="14 10"/>
-  <g class="part" data-id="chain">
-    <line x1="150" y1="300" x2="262" y2="300" class="chainline"/>
-    <circle cx="262" cy="300" r="12" class="cog"/><circle cx="150" cy="300" r="16" class="cog"/>
-  </g>
-  <g class="part" data-id="exhaust">
-    <path d="M340,302 C300,332 240,340 185,337" class="pipe"/>
-    <rect x="62" y="324" width="118" height="26" rx="13" class="muff"/>
-  </g>
-  <g>
-    <path d="M150,300 L240,228 L330,228" class="frame"/>
-    <path d="M150,300 L196,206" class="frame"/>
-    <line x1="302" y1="320" x2="330" y2="308" class="frame"/>
-    <circle cx="302" cy="320" r="5" fill="#263238"/>
-  </g>
-  <g class="part" data-id="engine">
-    <rect x="262" y="208" width="62" height="32" rx="6" class="cyl"/>
-    <g class="fins"><line x1="266" y1="215" x2="320" y2="215"/><line x1="266" y1="223" x2="320" y2="223"/><line x1="266" y1="231" x2="320" y2="231"/></g>
-    <rect x="245" y="235" width="110" height="85" rx="12" class="engine"/>
-  </g>
-  <g class="part" data-id="wheel">
-    <circle cx="150" cy="300" r="68" class="tire"/><circle cx="150" cy="300" r="40" class="rim"/>
-    <g class="spokes"><line x1="110" y1="300" x2="190" y2="300"/><line x1="130" y1="265" x2="170" y2="335"/><line x1="130" y1="335" x2="170" y2="265"/></g>
-    <circle cx="150" cy="300" r="9" class="hub"/>
-    <circle cx="490" cy="300" r="68" class="tire"/><circle cx="490" cy="300" r="40" class="rim"/>
-    <g class="spokes"><line x1="450" y1="300" x2="530" y2="300"/><line x1="470" y1="265" x2="510" y2="335"/><line x1="470" y1="335" x2="510" y2="265"/></g>
-    <circle cx="490" cy="300" r="9" class="hub"/>
-  </g>
-  <g class="part" data-id="brake">
-    <circle cx="490" cy="300" r="20" class="disc"/><rect x="498" y="280" width="11" height="15" rx="3" class="caliper"/>
-  </g>
-  <g class="part" data-id="fork">
-    <line x1="490" y1="300" x2="452" y2="148" class="fork"/>
-    <line x1="498" y1="296" x2="461" y2="150" class="fork2"/>
-  </g>
-  <path d="M431,266 A68 68 0 0 1 549,266" class="fender"/>
-  <path d="M86,277 A68 68 0 0 1 173,236" class="fender"/>
-  <circle cx="446" cy="138" r="9" class="speedo"/><line x1="446" y1="138" x2="451" y2="132" stroke="#c62828" stroke-width="2"/>
-  <g class="part" data-id="seat">
-    <path d="M192,180 L166,176 L170,196 L194,200 Z" class="tankc"/>
-    <rect x="192" y="176" width="118" height="24" rx="12" transform="rotate(-3 250 188)" class="seat"/>
-  </g>
-  <g class="part" data-id="tank">
-    <path d="M306,180 C330,160 376,158 398,170 C406,179 401,196 388,202 C360,211 326,209 309,200 C300,193 300,187 306,180 Z" class="tankc"/>
-    <ellipse cx="352" cy="176" rx="20" ry="6" class="shine"/>
-  </g>
-  <g class="part" data-id="handlebar">
-    <path d="M452,148 L436,124 L414,118" class="bar"/>
-    <line x1="414" y1="118" x2="398" y2="115" class="grip"/>
-  </g>
-  <g class="part" data-id="mirror">
-    <line x1="444" y1="140" x2="452" y2="102" class="stem"/>
-    <ellipse cx="456" cy="95" rx="14" ry="8" class="mirror"/>
-  </g>
-  <g class="part" data-id="headlight"><circle cx="474" cy="166" r="15" class="light"/></g>
-`;
+/* =============== ФОТО МОТОЦИКЛА (чёрный BMW) вместо рисованной схемы =============== */
+const MOTO_BODY=`<image href="bmw.png" x="0" y="0" width="840" height="434"></image>`;
 function buildMoto(svgEl){
   svgEl.innerHTML=MOTO_BODY+'<g class="hsLayer"></g><g class="lblLayer"></g>';
   const layer=svgEl.querySelector('.hsLayer');
   PARTS.forEach(p=>{
-    layer.innerHTML+=`<circle class="hs" data-id="${p.id}" cx="${p.x}" cy="${p.y}" r="14"></circle>
+    layer.innerHTML+=`<circle class="hs" data-id="${p.id}" cx="${p.x}" cy="${p.y}" r="17"></circle>
       <text class="hsNum" x="${p.x}" y="${p.y}">${p.n}</text>`;
   });
 }
@@ -436,7 +371,7 @@ function selectPart(id){
   document.querySelectorAll('#chips .chip').forEach(el=>el.classList.toggle('active',el.dataset.id===id));
   document.getElementById('pRu').textContent=p.n+'. '+p.ru;
   document.getElementById('pTr').textContent='['+p.tr+']';
-  document.getElementById('pEn').textContent='🇬🇧 '+p.en;
+  document.getElementById('pEn').textContent='🇬 '+p.en;
   const ex=document.getElementById('pEx');
   ex.style.display='block';
   ex.innerHTML='💬 '+p.ex+' <i>'+p.exEn+'</i>';
@@ -560,7 +495,7 @@ function makeQuiz(){
     const prompt=ruToEn?item.ru:item.en;
     const dummies=shuffle(POOL.filter(x=>x!==item)).slice(0,3).map(x=>ruToEn?x.en:x.ru);
     const opts=shuffle([ruToEn?item.en:item.ru,...dummies]);
-    return {prompt, correct:opts[0]===undefined?null:undefined, opts, answer:ruToEn?item.en:item.ru, ruToEn};
+    return {prompt, opts, answer:ruToEn?item.en:item.ru, ruToEn};
   });
 }
 function renderQuestion(){
